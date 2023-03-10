@@ -22,8 +22,8 @@ def select_all():
     cursor, conn = connect_to_db()
     cursor.execute("SELECT user_id, lifting_total, bodyweight, sumo FROM users")
     to_return = {}
-    for row in cursor.fetchall():
-        to_return[row[0]] = {
+    for i, row in enumerate(cursor.fetchall()):
+        to_return[i] = {
             'user_id': row[0],
             'lifting_total': row[1],
             'bodyweight': row[2],
@@ -36,8 +36,6 @@ def select_all():
 
 @app.route('/register', methods=['POST'])
 def register():
-
-    print('register')
     g = request.get_json().get
     cursor, conn = connect_to_db()
     cursor.execute(
